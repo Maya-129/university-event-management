@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Event Feedback</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a
+            href="/organizer/events.html"
+            class="navbar-brand"
+        >
+            Manage Events
+        </a>
+
+        <button
+            class="btn btn-danger"
+            onclick="logout()"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</nav>
+
+
+<div class="container py-5">
+
+    <h1>
+        Event Feedback
+    </h1>
+
+
+    <div id="message"></div>
+
+
+    <div
+        id="summary"
+        class="row g-3 my-4"
+    ></div>
+
+
+    <div id="feedback"></div>
+
+</div>
+
+
+<script src="/js/main.js"></script>
+
+
+<script>
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const eventId =
+    params.get("event_id");
+
+
+async function loadFeedback() {
+
+    try {
+
+        const data =
+            await apiFetch(
+                `/api/feedback/event/${eventId}`
+            );
+
+
+        document
+            .getElementById(
+                "summary"
+            )
+            .innerHTML = `
+
+                <div class="col-md-6">
+
+                    <div class="card shadow p-4 text-center">
+
+                        <h3>
+                            ${data.summary.total_feedback}
+                        </h3>
+
+                        <p>
+                            Total Feedback
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <div class="card shadow p-4 text-center">
+
+                        <h3>
+                            ⭐ ${data.summary.average_rating}
+                            / 5
+                        </h3>
+
+                        <p>
+                            Average Rating
+                        </p>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+        const feedback =
+            data.feedback;
+
+
+        if (
+            feedback.length === 0
+        ) {
+
+            document
+                .getElementById(
+                    "feedback"
+                )
+                .innerHTML = `
+                    <div class="alert alert-info">
+                        No feedback submitted yet.
+                    </div>
+                `;
+
+            return;
+
+        }
+
+
+        document
+            .getElementById(
+                "feedback"
+            )
+            .innerHTML =
+                feedback.map(
+                    item => `
+
+                        <div class="card shadow p-4 mb-3">
+
+                            <h5>
+                                ${item.name}
+                            </h5>
+
+                            <p>
+                                ${item.email}
+                            </p>
+
+                            <p class="text-warning">
+                                ⭐ ${item.rating}/5
+                            </p>
+
+                            <p>
+                                ${item.comment || ""}
+                            </p>
+
+                        </div>
+
+                    `
+                ).join("");
+
+
+    } catch (error) {
+
+        showMessage(
+            "message",
+            error.message,
+            "danger"
+        );
+
+    }
+
+}
+
+
+loadFeedback();
+
+</script>
+
+</body>
+
+</html>

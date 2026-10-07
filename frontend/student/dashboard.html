@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Dashboard</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar navbar-dark bg-dark">
+
+    <div class="container">
+
+        <span class="navbar-brand">
+            Student Dashboard
+        </span>
+
+        <button
+            class="btn btn-danger"
+            onclick="logout()"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</nav>
+
+
+<div class="container py-5">
+
+    <h1>
+        Welcome, <span id="name"></span>
+    </h1>
+
+    <p>
+        Manage your university event activities.
+    </p>
+
+
+    <div
+        id="message"
+        class="mt-3"
+    ></div>
+
+
+    <div class="row g-4 mt-3">
+
+        <div class="col-md-4">
+
+            <div class="card shadow p-4 dashboard-card">
+
+                <h3>📅 Browse Events</h3>
+
+                <p>
+                    Find upcoming university events.
+                </p>
+
+                <a
+                    href="/events.html"
+                    class="btn btn-primary"
+                >
+                    Browse
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card shadow p-4 dashboard-card">
+
+                <h3>📝 My Registrations</h3>
+
+                <p>
+                    View your registered events.
+                </p>
+
+                <a
+                    href="/student/registrations.html"
+                    class="btn btn-primary"
+                >
+                    View
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card shadow p-4 dashboard-card">
+
+                <h3>⭐ Feedback</h3>
+
+                <p>
+                    Submit event feedback.
+                </p>
+
+                <a
+                    href="/student/feedback.html"
+                    class="btn btn-primary"
+                >
+                    Feedback
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="/js/main.js"></script>
+
+
+<script>
+
+async function loadUser() {
+
+    const user =
+        await getCurrentUser();
+
+
+    if (!user) {
+
+        window.location.href =
+            "/login.html";
+
+        return;
+
+    }
+
+
+    if (
+        user.role !==
+        "student"
+    ) {
+
+        window.location.href =
+            "/organizer/dashboard.html";
+
+        return;
+
+    }
+
+
+    document
+        .getElementById(
+            "name"
+        )
+        .textContent =
+            user.name;
+
+}
+
+
+loadUser();
+
+</script>
+
+</body>
+
+</html>

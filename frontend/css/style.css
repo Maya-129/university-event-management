@@ -1,0 +1,97 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #c2daf2;
+}
+
+
+.navbar-brand {
+    font-weight: bold;
+   
+}
+
+
+.hero {
+    padding: 100px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5d85c2,
+            #a574f2
+        );
+
+    color: rgb(235, 227, 227);
+}
+
+
+.event-card {
+    transition: 0.2s;
+}
+
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+
+.card {
+    border: none;
+    border-radius: 12px;
+    
+}
+
+
+.dashboard-card {
+    min-height: 180px;
+}
+
+
+.dashboard-icon {
+    font-size: 40px;
+}
+
+
+.event-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+.auth-container {
+    max-width: 500px;
+    margin: 60px auto;
+}
+
+
+.btn {
+    border-radius: 8px;
+}
+
+
+.rating {
+    color: #ffc107;
+}
+
+
+.small-text {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+
+.page-header {
+    padding: 50px 0 30px;
+}
+
+
+footer {
+    margin-top: 60px;
+}
+
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
